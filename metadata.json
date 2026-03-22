@@ -1,0 +1,5 @@
+{
+  "name": "EnglishGuru",
+  "description": "A free, beginner-friendly English learning app with AI tutor and local JSON authentication.",
+  "requestFramePermissions": []
+}
