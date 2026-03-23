@@ -192,20 +192,8 @@ export default function Solve() {
   };
 
   return (
-    <div className="h-full flex flex-col relative">
-      <div className="bg-white p-4 border-b border-slate-100 shadow-sm z-10 shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-            <Bot className="w-5 h-5 text-indigo-600" />
-          </div>
-          <div>
-            <h1 className="text-lg font-bold text-slate-900">Solve Doubts</h1>
-            <p className="text-xs text-slate-500">Photo bhejein ya type karein</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex-1 bg-slate-50 overflow-y-auto p-4 space-y-4">
+    <div className="h-full flex flex-col relative bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -215,13 +203,13 @@ export default function Solve() {
           >
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                msg.role === 'user' ? 'bg-indigo-600' : 'bg-white shadow-sm border border-slate-200'
+                msg.role === 'user' ? 'bg-indigo-600' : 'bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700'
               }`}
             >
               {msg.role === 'user' ? (
                 <User className="w-5 h-5 text-white" />
               ) : (
-                <Bot className="w-5 h-5 text-indigo-600" />
+                <Bot className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               )}
             </div>
             
@@ -229,7 +217,7 @@ export default function Solve() {
               className={`max-w-[85%] rounded-2xl p-3 shadow-sm ${
                 msg.role === 'user'
                   ? 'bg-indigo-600 text-white rounded-tr-none'
-                  : 'bg-white text-slate-800 border border-slate-100 rounded-tl-none'
+                  : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-slate-700 rounded-tl-none'
               }`}
             >
               {msg.imageUrl && (
@@ -241,12 +229,12 @@ export default function Solve() {
         ))}
         {loading && (
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-indigo-600" />
+            <div className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+              <Bot className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <div className="bg-white border border-slate-100 rounded-2xl rounded-tl-none p-4 shadow-sm flex items-center gap-2">
+            <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl rounded-tl-none p-4 shadow-sm flex items-center gap-2">
               <Loader2 className="w-5 h-5 text-indigo-400 animate-spin" />
-              <span className="text-slate-500">Solve kar raha hai...</span>
+              <span className="text-slate-500 dark:text-slate-400">Solve kar raha hai...</span>
             </div>
           </div>
         )}
@@ -286,10 +274,10 @@ export default function Solve() {
       )}
 
       {/* Input Area */}
-      <div className="bg-white p-3 border-t border-slate-100 shrink-0">
+      <div className="bg-white dark:bg-slate-800 p-3 border-t border-slate-100 dark:border-slate-700 shrink-0 transition-colors duration-300">
         {croppedImageUrl && (
           <div className="mb-3 relative inline-block">
-            <img src={croppedImageUrl} alt="Cropped" className="h-20 rounded-lg border border-slate-200" />
+            <img src={croppedImageUrl} alt="Cropped" className="h-20 rounded-lg border border-slate-200 dark:border-slate-700" />
             <button 
               onClick={() => setCroppedImageUrl(null)}
               className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow-md"
@@ -317,7 +305,7 @@ export default function Solve() {
           <button
             type="button"
             onClick={() => cameraInputRef.current?.click()}
-            className="p-2 text-slate-500 hover:bg-slate-100 rounded-xl transition-colors"
+            className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors"
             title="Camera"
           >
             <Camera className="w-6 h-6" />
@@ -325,7 +313,7 @@ export default function Solve() {
           <button
             type="button"
             onClick={() => galleryInputRef.current?.click()}
-            className="p-2 text-slate-500 hover:bg-slate-100 rounded-xl transition-colors"
+            className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors"
             title="Gallery"
           >
             <ImageIcon className="w-6 h-6" />
@@ -335,7 +323,7 @@ export default function Solve() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Sawal puchhein..."
-            className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all min-w-0"
+            className="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 text-base text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 transition-all min-w-0 placeholder-slate-400 dark:placeholder-slate-500"
             disabled={loading}
           />
           <button

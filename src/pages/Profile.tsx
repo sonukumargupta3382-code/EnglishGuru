@@ -58,35 +58,37 @@ export default function Profile() {
     }
   };
 
-  const userInitial = user?.name ? user.name.charAt(0).toUpperCase() : 'U';
+  const displayName = user?.name || auth.currentUser?.displayName || auth.currentUser?.email?.split('@')[0] || 'User';
+  const displayEmail = user?.email || auth.currentUser?.email || 'No Email';
+  const userInitial = displayName.charAt(0).toUpperCase();
 
   return (
-    <div className="p-4 h-full flex flex-col overflow-y-auto bg-slate-50 pb-24">
+    <div className="p-4 h-full flex flex-col overflow-y-auto bg-slate-50 dark:bg-slate-900 pb-24 transition-colors duration-300">
       <button 
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 text-slate-500 hover:text-slate-700 mb-6 transition-colors"
+        className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 mb-6 transition-colors"
       >
         <ArrowLeft className="w-5 h-5" />
         Wapas Jayein
       </button>
 
-      <div className="bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 mb-6 flex flex-col items-center text-center relative overflow-hidden">
-        <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-4xl shadow-lg ring-4 ring-white relative z-10 mb-5">
+      <div className="bg-white dark:bg-slate-800 rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-slate-100 dark:border-slate-700 mb-6 flex flex-col items-center text-center relative overflow-hidden transition-colors duration-300">
+        <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-4xl shadow-lg ring-4 ring-white dark:ring-slate-800 relative z-10 mb-5">
           {userInitial}
         </div>
-        <h1 className="text-2xl font-extrabold text-slate-900 relative z-10">{user?.name}</h1>
-        <p className="text-slate-500 flex items-center gap-2 mt-2 relative z-10 font-medium">
+        <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white relative z-10">{displayName}</h1>
+        <p className="text-slate-500 dark:text-slate-400 flex items-center gap-2 mt-2 relative z-10 font-medium">
           <User className="w-4 h-4" />
-          {user?.email}
+          {displayEmail}
         </p>
       </div>
 
       {auth.currentUser?.providerData[0]?.providerId === 'password' && (
-        <div className="bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 mb-6">
+        <div className="bg-white dark:bg-slate-800 rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-slate-100 dark:border-slate-700 mb-6 transition-colors duration-300">
           {!showPasswordForm ? (
             <button
               onClick={() => setShowPasswordForm(true)}
-              className="w-full flex items-center justify-center gap-2 py-4 bg-indigo-50 text-indigo-600 font-bold rounded-2xl hover:bg-indigo-100 transition-colors border border-indigo-100 shadow-sm"
+              className="w-full flex items-center justify-center gap-2 py-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors border border-indigo-100 dark:border-indigo-800 shadow-sm"
             >
               <Lock className="w-5 h-5" />
               Change Password
@@ -94,8 +96,8 @@ export default function Profile() {
           ) : (
             <>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <Lock className="w-5 h-5 text-indigo-600" />
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Lock className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                   Password Badlein
                 </h2>
                 <button 
@@ -106,45 +108,45 @@ export default function Profile() {
                     setCurrentPassword('');
                     setNewPassword('');
                   }}
-                  className="text-sm text-slate-500 hover:text-slate-700 font-medium"
+                  className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 font-medium"
                 >
                   Cancel
                 </button>
               </div>
 
               {error && (
-                <div className="bg-red-50 border-l-4 border-red-500 p-3 rounded-md flex items-start gap-2 mb-4">
-                  <AlertCircle className="w-4 h-4 text-red-500 mt-0.5" />
-                  <p className="text-sm text-red-700">{error}</p>
+                <div className="bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-3 rounded-md flex items-start gap-2 mb-4">
+                  <AlertCircle className="w-4 h-4 text-red-500 dark:text-red-400 mt-0.5" />
+                  <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
                 </div>
               )}
 
               {success && (
-                <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded-md flex items-start gap-2 mb-4">
-                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5" />
-                  <p className="text-sm text-green-700">{success}</p>
+                <div className="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 p-3 rounded-md flex items-start gap-2 mb-4">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 dark:text-green-400 mt-0.5" />
+                  <p className="text-sm text-green-700 dark:text-green-300">{success}</p>
                 </div>
               )}
 
               <form onSubmit={handleChangePassword} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Purana Password</label>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Purana Password</label>
                   <input
                     type="password"
                     required
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
-                    className="w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Naya Password</label>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Naya Password</label>
                   <input
                     type="password"
                     required
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400"
                   />
                 </div>
                 <button
@@ -162,14 +164,14 @@ export default function Profile() {
 
       <button
         onClick={handleLogout}
-        className="flex items-center justify-center gap-2 w-full py-4 bg-red-50 text-red-600 font-bold rounded-2xl hover:bg-red-100 transition-colors border border-red-100 shadow-sm"
+        className="flex items-center justify-center gap-2 w-full py-4 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 font-bold rounded-2xl hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors border border-red-100 dark:border-red-800 shadow-sm"
       >
         <LogOut className="w-5 h-5" />
         Logout Karein
       </button>
 
       <div className="mt-auto pt-8 pb-4 text-center">
-        <p className="text-slate-400 font-medium tracking-wide text-sm">By @KKG</p>
+        <p className="text-slate-400 dark:text-slate-500 font-medium tracking-wide text-sm">By @KKG</p>
       </div>
     </div>
   );

@@ -25,8 +25,8 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-slate-200 flex items-center justify-center sm:py-8">
-        <div className="w-full h-screen sm:w-[400px] sm:h-[800px] bg-slate-50 sm:rounded-[3rem] sm:border-[12px] border-slate-900 overflow-hidden relative shadow-2xl flex flex-col">
+      <div className="min-h-screen bg-slate-200 dark:bg-slate-950 flex items-center justify-center sm:py-8 transition-colors duration-300">
+        <div className="w-full h-screen sm:w-[400px] sm:h-[800px] bg-slate-50 dark:bg-slate-900 sm:rounded-[3rem] sm:border-[12px] border-slate-900 dark:border-slate-800 overflow-hidden relative shadow-2xl flex flex-col transition-colors duration-300">
           <Router>
             <Routes>
               <Route path="/login" element={<Login />} />
